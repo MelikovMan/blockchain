@@ -15,7 +15,7 @@
     "debug": "node --inspect --env-file=.env ./dist/server.js"
   },
   "devDependencies": {
-    "@types/node": "^24.6.0",
+    "@types/node": "^24.7.2",
     "typescript": "^5.9.2"
   },
   "keywords": [],

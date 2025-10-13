@@ -36,7 +36,7 @@ const all_adr = [...getAllPaymentsfromHC(t),...getAllPaymentsfromHC(t,true)];
 let multisig = generateMultiSigAddress(master_pr_key,master_pr_key_2);
 let balance = 163335;
 const tx_id = "fb9a2ffc2d02a65ca509181f7f8c10915997f28228f533af0975557da423f286"
-/*getTxInfo(all_adr,200).then(result=>{
+getTxInfo(all_adr,2000).then(result=>{
     if (!result) return;
     const json = JSON.stringify(result)
     console.log(result)
@@ -47,7 +47,6 @@ const tx_id = "fb9a2ffc2d02a65ca509181f7f8c10915997f28228f533af0975557da423f286"
     })
 
 }).catch(err=>{console.error(err)})
-*/
 getTxInfo([multisig.payment],10000).then(result=>{
     if (!result) return;
     const json = JSON.stringify(result)
