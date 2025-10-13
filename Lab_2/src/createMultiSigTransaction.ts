@@ -27,6 +27,10 @@ export function createMultiSigTransaction(UXTOs:UXTO[],multisig:MultiAddress,
         risidue-=UXTO.value;
         if (risidue <= 0) break;
     }
+    if (risidue > 0) {
+        console.error("Insufficent funds");
+        return;
+    } 
     const change = -risidue;
     const changeAddr = generateMultiSigAddress(process.env.MASTER_PR_KEY,
         process.env.MASTER_PR_KEY_2,true);
