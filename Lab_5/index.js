@@ -79,7 +79,9 @@ async function deployContractFromNaught(myContract, code, ...deployArgs){
         })
         .on('confirmation', function(confirmationNumber, receipt){ })
             .then(function(newContractInstance){
-                console.log(newContractInstance.options.address) // instance with the new contract address
+                console.log(newContractInstance.options.address)
+                 // instance with the new contract address
+                 fs.writeFileSync("contract-address.md", newContractInstance.options.address);
             });
 
 }
@@ -109,19 +111,46 @@ async function callImpureFunction(address, key, contract, method_name,  ...metho
   };
   await signAndSendTransaction(tx,key);
 }
+
+async function transferERC20(myContract, from_addr, from_key, to_addr,amount){
+    myContract._methods.balanceOf(from_addr).call()
+    .then((value)=>{
+        console.log("Amount in from account:" ,value);
+        if (value < amount)
+            throw new Error("Insufficent funds!");
+    });
+    myContract._methods.balanceOf(to_addr).call()
+    .then((value)=>{
+        console.log("Amount in to account:" ,value);
+    });
+    await callImpureFunction(from_addr,from_key,myContract,"transfer",to_addr,amount);
+    myContract._methods.balanceOf(to_addr).call()
+    .then((value)=>{
+        console.log("New amount in to account:" ,value);
+    });
+        myContract._methods.balanceOf(from_addr).call()
+    .then((value)=>{
+        console.log("New amount in from account:" ,value);
+    });
+}
 try {
     const keyFile = fs.readFileSync(`${datadir}/keystore/${keystrore_1}`, {encoding: "utf-8"});
     const dk = keythereum.recover(PWD_1,JSON.parse(keyFile));
     const privateKay = '0x' + dk.toString('hex');
-    const contractAddr = "0xe213d8b68ca3d01e51a6dba669de59ac9a8359ee"
+    const metamaskaddr = "0x41070bCb696406a11ab1Fa49BDF637F303C30DE2"
+    const contractAddr = "0x3294e36eeb00cd95788420c0f90dd5e17ccdc314"
+    const {contract, code} = createContract("output-smart.json","ETCToken.sol","GLDToken", contractAddr)
+    transferERC20(contract,address_1,privateKay,metamaskaddr,Web3.utils.toWei("0.001", 'ether')).then(()=>
+        console.log("Transfer-done")
+    )
     //signAndSendTransaction(rawTransaction, privateKay)
-    const contract = createContract("output.json","Greeter.sol","Greeter",contractAddr).contract
+    /*const contract = createContract("output.json","Greeter.sol","Greeter",contractAddr).contract
     contract._methods.getGreet().call()
     .then(console.log)
     callImpureFunction(address_1,privateKay,contract,"setGreet","Hello, Eth").then(()=>{
             contract._methods.getGreet().call()
             .then(console.log)
-    })
+    })*/
     
 } catch (err) {
     console.error('Error opening file: ', err)
