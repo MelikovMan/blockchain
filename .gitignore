@@ -6,3 +6,29 @@ Lab_3/node_modules
 Lab_3/.env
 Lab_5/node_modules
 Lab_5/.env
+Lab_7/ton-nft-project/node_modules
+Lab_7/ton-nft-project/temp
+Lab_7/ton-nft-project/build
+Lab_7/ton-nft-project/dist
+Lab_7/ton-nft-project/.DS_Store
+Lab_7/ton-nft-project/package.ts
+
+# VS Code
+.vscode/*
+.history/
+*.vsix
+Lab_7/ton-nft-project/.vscode/*
+Lab_7/ton-nft-project/.history/
+Lab_7/ton-nft-project/*.vsix
+
+# IDEA files
+Lab_7/ton-nft-project/.idea
+
+# VIM
+Lab_7/ton-nft-project/Session.vim
+Lab_7/ton-nft-project/.vim/
+
+# Other private editor folders
+Lab_7/ton-nft-project/.nvim/
+Lab_7/ton-nft-project/.emacs/
+Lab_7/ton-nft-project/.helix/
